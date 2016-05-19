@@ -32,7 +32,7 @@ define voxpupuli_archive::go (
   $file_url = "${go_url}/${url_path}"
   $md5_url = "${go_url}/${md5_url_path}"
 
-  voxpupuli_archive { $file_path:
+  archive { $file_path:
     ensure        => $ensure,
     path          => $file_path,
     extract       => $extract,
@@ -54,6 +54,6 @@ define voxpupuli_archive::go (
     owner   => $file_owner,
     group   => $file_group,
     mode    => $file_mode,
-    require => Voxpupuli_Archive[$file_path],
+    require => Archive[$file_path],
   }
 }

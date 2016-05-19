@@ -48,7 +48,7 @@ class voxpupuli_archive (
         ensure => 'directory',
       }
 
-      voxpupuli_archive { 'awscli-bundle.zip':
+      archive { 'awscli-bundle.zip':
         ensure       => present,
         path         =>  '/opt/awscli-bundle/awscli-bundle.zip',
         source       => 'https://s3.amazonaws.com/aws-cli/awscli-bundle.zip',
@@ -61,7 +61,7 @@ class voxpupuli_archive (
       exec { 'install_aws_cli':
         command     => '/opt/awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws',
         refreshonly => true,
-        subscribe   => Voxpupuli_Archive['awscli-bundle.zip'],
+        subscribe   => Archive['awscli-bundle.zip'],
       }
     }
   }

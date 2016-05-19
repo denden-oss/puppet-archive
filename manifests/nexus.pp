@@ -67,7 +67,7 @@ define voxpupuli_archive::nexus (
   $artifact_url = assemble_nexus_url($url, delete_undef_values($query_params))
   $checksum_url = regsubst($artifact_url, "p=${packaging}", "p=${packaging}.${checksum_type}")
 
-  voxpupuli_archive { $name:
+  archive { $name:
     ensure          => $ensure,
     source          => $artifact_url,
     username        => $username,
@@ -95,7 +95,7 @@ define voxpupuli_archive::nexus (
     owner   => $file_owner,
     group   => $file_group,
     mode    => $file_mode,
-    require => Voxpupuli_Archive[$name],
+    require => Archive[$name],
   }
 
 }

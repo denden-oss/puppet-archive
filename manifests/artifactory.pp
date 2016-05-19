@@ -81,7 +81,7 @@ define voxpupuli_archive::artifactory (
     fail('Please provide fully qualified url path for artifactory file.')
   }
 
-  voxpupuli_archive { $file_path:
+  archive { $file_path:
     ensure        => $ensure,
     path          => $file_path,
     extract       => $extract,
@@ -101,6 +101,6 @@ define voxpupuli_archive::artifactory (
     owner   => $file_owner,
     group   => $file_group,
     mode    => $file_mode,
-    require => Voxpupuli_Archive[$file_path],
+    require => Archive[$file_path],
   }
 }
