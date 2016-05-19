@@ -95,7 +95,7 @@
       "version_requirement": ">=2.7.0"
     }
   ],
-  "name": "puppet-archive",
+  "name": "puppet-voxpupuli_archive",
   "version": "0.5.2-rc0",
   "source": "https://github.com/puppet-community/puppet-archive",
   "author": "puppetcommunity",
