@@ -3,7 +3,7 @@
 #
 # archive settings such as default user and file mode.
 #
-class archive::params {
+class voxpupuli_archive::params {
   case $::osfamily {
     'Windows': {
       $path               = $::archive_windir

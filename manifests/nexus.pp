@@ -18,7 +18,7 @@
 #   extract    => false,
 # }
 #
-define archive::nexus (
+define voxpupuli_archive::nexus (
   $url,
   $gav,
   $repository,
@@ -44,7 +44,7 @@ define archive::nexus (
   $proxy_type      = undef,
 ) {
 
-  include ::archive::params
+  include ::voxpupuli_archive::params
 
   $artifact_info = split($gav, ':')
 
@@ -67,7 +67,7 @@ define archive::nexus (
   $artifact_url = assemble_nexus_url($url, delete_undef_values($query_params))
   $checksum_url = regsubst($artifact_url, "p=${packaging}", "p=${packaging}.${checksum_type}")
 
-  archive { $name:
+  voxpupuli_archive { $name:
     ensure          => $ensure,
     source          => $artifact_url,
     username        => $username,
@@ -87,15 +87,15 @@ define archive::nexus (
     proxy_type      => $proxy_type,
   }
 
-  $file_owner = pick($owner, $archive::params::owner)
-  $file_group = pick($group, $archive::params::group)
-  $file_mode  = pick($mode, $archive::params::mode)
+  $file_owner = pick($owner, $voxpupuli_archive::params::owner)
+  $file_group = pick($group, $voxpupuli_archive::params::group)
+  $file_mode  = pick($mode, $voxpupuli_archive::params::mode)
 
   file { $name:
     owner   => $file_owner,
     group   => $file_group,
     mode    => $file_mode,
-    require => Archive[$name],
+    require => Voxpupuli_Archive[$name],
   }
 
 }

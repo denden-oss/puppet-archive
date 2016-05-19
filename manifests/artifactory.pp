@@ -42,7 +42,7 @@
 #   cleanup      => true,
 # }
 #
-define archive::artifactory (
+define voxpupuli_archive::artifactory (
   $path         = $name,
   $ensure       = present,
   $url          = undef,
@@ -59,7 +59,7 @@ define archive::artifactory (
   $cleanup      = undef,
 ) {
 
-  include ::archive::params
+  include ::voxpupuli_archive::params
 
   if $archive_path {
     $file_path = "${archive_path}/${name}"
@@ -73,7 +73,7 @@ define archive::artifactory (
     $file_url = $url
     $sha1_url = regsubst($url, '/artifactory/', '/artifactory/api/storage/')
   } elsif $server and $port and $url_path {
-    warning('archive::artifactory attribute: server, port, url_path are deprecated')
+    warning('voxpupuli_archive::artifactory attribute: server, port, url_path are deprecated')
     $art_url = "http://${server}:${port}/artifactory"
     $file_url = "${art_url}/${url_path}"
     $sha1_url = "${art_url}/api/storage/${url_path}"
@@ -81,7 +81,7 @@ define archive::artifactory (
     fail('Please provide fully qualified url path for artifactory file.')
   }
 
-  archive { $file_path:
+  voxpupuli_archive { $file_path:
     ensure        => $ensure,
     path          => $file_path,
     extract       => $extract,
@@ -93,14 +93,14 @@ define archive::artifactory (
     cleanup       => $cleanup,
   }
 
-  $file_owner = pick($owner, $archive::params::owner)
-  $file_group = pick($group, $archive::params::group)
-  $file_mode  = pick($mode, $archive::params::mode)
+  $file_owner = pick($owner, $voxpupuli_archive::params::owner)
+  $file_group = pick($group, $voxpupuli_archive::params::group)
+  $file_mode  = pick($mode, $voxpupuli_archive::params::mode)
 
   file { $file_path:
     owner   => $file_owner,
     group   => $file_group,
     mode    => $file_mode,
-    require => Archive[$file_path],
+    require => Voxpupuli_Archive[$file_path],
   }
 }

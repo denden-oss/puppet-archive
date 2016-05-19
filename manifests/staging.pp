@@ -3,13 +3,13 @@
 #
 # backwards compatibility class for staging module.
 #
-class archive::staging (
-  $path  = $archive::params::path,
-  $owner = $archive::params::owner,
-  $group = $archive::params::group,
-  $mode  = $archive::params::mode,
-) inherits archive::params {
-  include '::archive'
+class voxpupuli_archive::staging (
+  $path  = $voxpupuli_archive::params::path,
+  $owner = $voxpupuli_archive::params::owner,
+  $group = $voxpupuli_archive::params::group,
+  $mode  = $voxpupuli_archive::params::mode,
+) inherits voxpupuli_archive::params {
+  include '::voxpupuli_archive'
 
   if !defined(File[$path]) {
     file { $path:

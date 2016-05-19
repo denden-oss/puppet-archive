@@ -22,12 +22,12 @@
 # }
 #
 class voxpupuli_archive (
-  $seven_zip_name     = $archive::params::seven_zip_name,
-  $seven_zip_provider = $archive::params::seven_zip_provider,
+  $seven_zip_name     = $voxpupuli_archive::params::seven_zip_name,
+  $seven_zip_provider = $voxpupuli_archive::params::seven_zip_provider,
   $seven_zip_source   = undef,
   $gem_provider       = undef,
   $aws_cli_install    = false,
-) inherits archive::params {
+) inherits voxpupuli_archive::params {
 
   if $::osfamily == 'Windows' and !($seven_zip_provider in ['', undef]) {
     package { '7zip':
@@ -48,7 +48,7 @@ class voxpupuli_archive (
         ensure => 'directory',
       }
 
-      archive { 'awscli-bundle.zip':
+      voxpupuli_archive { 'awscli-bundle.zip':
         ensure       => present,
         path         =>  '/opt/awscli-bundle/awscli-bundle.zip',
         source       => 'https://s3.amazonaws.com/aws-cli/awscli-bundle.zip',
@@ -61,7 +61,7 @@ class voxpupuli_archive (
       exec { 'install_aws_cli':
         command     => '/opt/awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws',
         refreshonly => true,
-        subscribe   => Archive['awscli-bundle.zip'],
+        subscribe   => Voxpupuli_Archive['awscli-bundle.zip'],
       }
     }
   }
